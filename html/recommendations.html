@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Recommendations</title>
+    <link rel="stylesheet" href="../css/r.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Personalized Health Recommendations</h1>
+        </header>
+        <main>
+            <div class="user-info">
+                <h2>Welcome, <span id="user-name">[User Name]</span></h2>
+                <p>Your health data has been analyzed to provide you with tailored recommendations.</p>
+            </div>
+            <div class="recommendations">
+                <h3>Your Recommendations <span style="color:red;">( <i class="fas fa-exclamation-circle"></i> CRITICAL )</span></h3>
+                <div id="recommendations-list" class="recommendation-cards">
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Health Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userId = localStorage.getItem("user_id");
+            const apiUrl = `http://127.0.0.1:5000/recommendations/recommendations/${userId}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Update user information
+                    document.getElementById("user-name").textContent = data.user.name;
+
+                    // Populate recommendations
+                    const recommendationsList = document.getElementById("recommendations-list");
+                    recommendationsList.innerHTML = ""; // Clear previous entries
+                    data.recommendations.forEach(rec => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+
+                        // Check if the recommendation contains "high" or "low"
+                        if (rec.toLowerCase().includes("high")) {
+                            card.classList.add("high"); // Add high class for dark blue
+                        } else if (rec.toLowerCase().includes("low")) {
+                            card.classList.add("low"); // Add low class for light blue
+                        }
+
+                        card.innerHTML = `<p>${rec}</p>`;
+                        recommendationsList.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error("Failed to fetch recommendations:", error);
+                    alert("Could not fetch recommendations. Please try again later.");
+                });
+        });
+    </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+</body>
+</html>
+
+
+
+

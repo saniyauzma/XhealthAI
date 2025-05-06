@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up or Log In</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/signup.css">
+</head>
+  <header>
+    <div class="logo">Your Logo Here</div>
+    <nav>
+      <a href="index.html" class="button">Home</a>
+      <a href="offer.html" class="button">What We Offer</a>
+      <a href="signup.html" class="button">Sign Up or Log In</a>
+      <a href="extra.html" class="button">Explore More</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Tab Controls -->
+      <div class="tabs">
+          <button class="tab-btn active" onclick="showContent('signup')">Sign Up</button>
+          <button class="tab-btn" onclick="showContent('login')">Log In</button>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signup" class="content active">
+          <h1>Sign Up</h1>
+          <form id="signup-form">
+              <input type="text" id="full-name" placeholder="Full Name" required>
+              <input type="email" id="email" placeholder="Email Address" required>
+              <input type="number" id="age" placeholder="Age" required>
+              <select id="gender" required>
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+              </select>
+              <input type="password" id="password" placeholder="Password" required>
+              <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+              <button type="submit">Sign Up</button>
+          </form>
+      </div>
+
+      <!-- Log In Form -->
+      <div id="login" class="content">
+          <h1>Log In</h1>
+          <form id="login-form">
+              <input type="email" id="login-email" placeholder="Email Address" required>
+              <input type="password" id="login-password" placeholder="Password" required>
+              <button type="submit">Log In</button>
+          </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+      // Toggle content visibility based on the clicked tab
+      function showContent(id) {
+          const contents = document.querySelectorAll('.content');
+          const buttons = document.querySelectorAll('.tab-btn');
+
+          contents.forEach(content => content.classList.remove('active'));
+          buttons.forEach(button => button.classList.remove('active'));
+
+          document.getElementById(id).classList.add('active');
+          document.querySelector(`.tab-btn[onclick="showContent('${id}')"]`).classList.add('active');
+      }
+
+      // Sign Up Form Submission
+      document.getElementById('signup-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const fullName = document.getElementById('full-name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const age = document.getElementById('age').value.trim();
+          const gender = document.getElementById('gender').value;
+          const password = document.getElementById('password').value.trim();
+          const confirmPassword = document.getElementById('confirm-password').value.trim();
+
+          // Validate that passwords match
+          if (password !== confirmPassword) {
+              alert('Passwords do not match. Please try again.');
+              return;
+          }
+
+          // Prepare data for API request
+          const userData = { name: fullName, email, age, gender, password };
+
+          // Send data to backend
+          fetch('http://127.0.0.1:5000/auth/signup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(userData)
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.message === "Sign Up Successful") {
+                  // Store user_id in local storage
+                  if (data.user_id) localStorage.setItem("user_id", data.user_id);
+
+                  alert('Sign Up Successful!');
+                  window.location.href = 'afterlogin.html';
+              } else {
+                  alert('Sign Up Failed: ' + data.message);
+              }
+          })
+          .catch(error => alert('Error: ' + error.message));
+      });
+
+      // Log In Form Submission
+      document.getElementById('login-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById('login-email').value.trim();
+          const password = document.getElementById('login-password').value.trim();
+
+          // Prepare login data
+          const loginData = { email, password };
+
+          // Send data to backend
+          fetch('http://127.0.0.1:5000/auth/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(loginData)
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.message === "Login Successful") {
+                  // Store user_id in local storage
+                  if (data.user_id) localStorage.setItem("user_id", data.user_id);
+
+                  alert('Login Successful!');
+                  window.location.href = 'afterlogin.html';
+              } else {
+                  alert('Login Failed: ' + data.error);
+              }
+          })
+          .catch(error => alert('Error: ' + error.message));
+      });
+  </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+  
+  

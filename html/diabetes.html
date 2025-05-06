@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/box.css">
+  <title>Diabetes Prediction</title>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Diabetes Risk Assessment</h1>
+  </div>
+
+  <!-- Tagline Section -->
+  <div class="intro-text">
+    <p>Know your health better. Enter your details to predict your risk of diabetes!</p>
+  </div>
+
+  <!-- Main Input Section -->
+  <div class="main">
+
+    <!-- Left Column -->
+    <div class="left-column">
+      <div class="input-section">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+      <div class="input-section">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age">
+      </div>
+      <div class="input-section">
+        <label for="gender">Gender:</label>
+        <select id="gender">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="bmi">BMI:</label>
+        <input type="number" id="bmi" placeholder="Enter your BMI">
+      </div>
+    </div> <!-- Close left-column div -->
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <div class="input-section">
+        <label for="smoking_history">Smoking History:</label>
+        <select id="smoking_history">
+          <option value="" disabled selected>Select Smoking History</option>
+          <option value="never">Never</option>
+          <option value="former">Former</option>
+          <option value="current">Current</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="hypertension">Hypertension:</label>
+        <select id="hypertension">
+          <option value="" disabled selected>Select Hypertension</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="blood_glucose_level">Blood Glucose Level:</label>
+        <input type="number" id="blood_glucose_level" placeholder="Enter blood glucose level">
+      </div>
+      <div class="input-section">
+        <label for="HbA1c_level">HbA1c Level:</label>
+        <input type="number" id="HbA1c_level" placeholder="Enter HbA1c level">
+      </div>
+    </div> <!-- Close right-column div -->
+
+  </div> <!-- Close main div -->
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="predict-btn" onclick="saveData()">Save Data</button>
+    <button class="predict-btn" onclick="predictDiabetesRisk()">Predict Risk</button>
+  </div>
+
+  <!-- Result Box -->
+  <div class="result-box" id="result-box">
+    <p>RESULT BOX for after predictions</p>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer class="footer-container">
+    <p>Stay healthy and informed. <span>&#x2764;</span></p>
+  </footer>
+
+  <script>
+    // Function to save data to the backend for diabetes
+    function saveData() {
+        const age = document.getElementById("age").value.trim();
+        const gender = document.getElementById("gender").value;
+        const hypertension = document.getElementById("hypertension").value;
+        const smokingHistory = document.getElementById("smoking_history").value;
+        const bmi = document.getElementById("bmi").value.trim();
+        const hba1cLevel = document.getElementById("HbA1c_level").value.trim();
+        const bloodGlucoseLevel = document.getElementById("blood_glucose_level").value.trim();
+
+        // Replace with actual user ID from your system
+        const userId = localStorage.getItem("user_id");
+
+        // Data validation before sending request
+        if (!age || !gender || !hypertension || !smokingHistory || !bmi || !hba1cLevel || !bloodGlucoseLevel) {
+            alert("Please fill in all fields correctly.");
+            return;
+        }
+
+        fetch(`http://127.0.0.1:5000/diabetes/diabetes_data/${userId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                age,
+                gender,
+                hypertension,
+                smoking_history: smokingHistory,
+                bmi,
+                HbA1c_level: hba1cLevel,
+                blood_glucose_level: bloodGlucoseLevel,
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Data saved:", data);
+            alert("Data saved successfully!");
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error saving data!");
+        });
+    }
+
+    // Function to predict diabetes risk
+    function predictDiabetesRisk() {
+        const age = document.getElementById("age").value.trim();
+        const gender = document.getElementById("gender").value;
+        const hypertension = document.getElementById("hypertension").value;
+        const smokingHistory = document.getElementById("smoking_history").value;
+        const bmi = document.getElementById("bmi").value.trim();
+        const hba1cLevel = document.getElementById("HbA1c_level").value.trim();
+        const bloodGlucoseLevel = document.getElementById("blood_glucose_level").value.trim();
+
+        // Data validation before sending request
+        if (!age || isNaN(age) || !gender || !hypertension || !smokingHistory || !bmi || isNaN(bmi) || !hba1cLevel || isNaN(hba1cLevel) || !bloodGlucoseLevel || isNaN(bloodGlucoseLevel)) {
+            alert("Please fill in all fields correctly.");
+            return;
+        }
+
+        // Show loading message while waiting for response
+        document.getElementById("result-box").innerText = "Loading prediction...";
+
+        fetch("http://127.0.0.1:5000/diabetes/diabetes_predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                age,
+                gender,
+                hypertension,
+                smoking_history: smokingHistory,
+                bmi,
+                HbA1c_level: hba1cLevel,
+                blood_glucose_level: bloodGlucoseLevel,
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Prediction:", data);
+            const resultBox = document.getElementById("result-box");
+            resultBox.innerHTML = `
+                <p><strong>Prediction:</strong> ${data.message}</p>
+                <p><strong>Risk Assessment:</strong> Based on the analysis, there is a <strong>${data.probabilities.risk}</strong> likelihood of being at risk of diabetes, while there is a <strong>${data.probabilities.no_risk}</strong> chance of no risk.</p>
+            `;
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error predicting risk!");
+            document.getElementById("result-box").innerText = "Error occurred. Please try again.";
+        });
+    }
+  </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 900px; border: none; z-index: 9999;"></iframe>
+</body>
+</html>
+
+
+
+

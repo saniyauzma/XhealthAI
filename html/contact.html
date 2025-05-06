@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - XHealthAI</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #e0f7fa;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        max-width: 2000px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .left-section {
+        flex: 1;
+        background-color: #e0f7fa;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .left-section h1 {
+        font-size: 36px;
+        color: #333333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .left-section p {
+        font-size: 18px;
+        color: #555555;
+        margin: 5px 0;
+      }
+
+      .contact-info {
+        margin-top: 20px;
+        text-align: left;
+        font-size: 16px;
+        color: #333333;
+      }
+
+      .contact-info p {
+        margin: 10px 0;
+      }
+
+      .contact-info p span {
+        font-weight: bold;
+      }
+
+      .contact-button {
+        margin-top: 20px;
+      }
+
+      .contact-button button {
+        background-color: #333333;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .contact-button button:hover {
+        background-color: #555555;
+      }
+
+      .icons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .icons a {
+        color: #333333;
+        font-size: 20px;
+        text-decoration: none;
+      }
+
+      .right-section {
+        flex: 1;
+        background-color: #004d66;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .right-section h1 {
+        font-size: 36px;
+      }
+
+      .right-section p {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .logo {
+        max-width: 150px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-section">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+          <p><span>Phone:</span> (123) 456 7890</p>
+          <p><span>Email:</span> xyz@gmail.com</p>
+        </div>
+        <div class="contact-button">
+          <button onclick="location.href='mailto:xyz@gmail.com'">Contact Me</button>
+        </div>
+        <div class="icons">
+          <a href="mailto:xyz@gmail.com">📧</a>
+          <a href="https://www.instagram.com" target="_blank">📸</a>
+        </div>
+      </div>
+      <div class="right-section">
+        <div>
+          <img src="../images/logo.png" alt="XHealthAI Logo" class="logo" />
+          <h1>XHealthAI</h1>
+          <p>"Next-Gen Health Insights, Driven by AI"</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

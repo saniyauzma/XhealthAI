@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/box.css">
+  <title>Sleep Prediction</title>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Sleep Quality Assessment</h1>
+  </div>
+
+  <!-- Tagline Section -->
+  <div class="intro-text">
+    Improve your sleep! Enter your details to predict the quality of your sleep.
+  </div>
+
+  <!-- Main Input Section -->
+  <div class="main">
+
+    <!-- Left Column -->
+    <div class="left-column">
+      <div class="input-section">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age">
+      </div>
+      <div class="input-section">
+        <label for="gender">Gender:</label>
+        <select id="gender">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="sleep_duration">Sleep Duration (hours):</label>
+        <input type="number" step="0.1" id="sleep_duration" placeholder="Enter your sleep duration">
+      </div>
+      <div class="input-section">
+        <label for="quality_of_sleep">Quality of Sleep (1-10):</label>
+        <input type="number" id="quality_of_sleep" placeholder="Enter your quality of sleep">
+      </div>
+      <div class="input-section">
+        <label for="physical_activity_level">Physical Activity Level:</label>
+        <input type="number" id="physical_activity_level" placeholder="Enter your physical activity level">
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <div class="input-section">
+        <label for="stress_level">Stress Level:</label>
+        <input type="number" id="stress_level" placeholder="Enter your stress level">
+      </div>
+      <div class="input-section">
+        <label for="bmi_category">BMI Category:</label>
+        <select id="bmi_category">
+          <option value="" disabled selected>Select BMI category</option>
+          <option value="Underweight">Underweight</option>
+          <option value="Normal">Normal</option>
+          <option value="Overweight">Overweight</option>
+          <option value="Obese">Obese</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="heart_rate">Heart Rate (bpm):</label>
+        <input type="number" id="heart_rate" placeholder="Enter your heart rate">
+      </div>
+      <div class="input-section">
+        <label for="daily_steps">Daily Steps:</label>
+        <input type="number" id="daily_steps" placeholder="Enter your daily step count">
+      </div>
+      <div class="input-section">
+        <label for="systolic_bp">Systolic Blood Pressure:</label>
+        <input type="number" id="systolic_bp" placeholder="Enter your systolic BP">
+      </div>
+      <div class="input-section">
+        <label for="diastolic_bp">Diastolic Blood Pressure:</label>
+        <input type="number" id="diastolic_bp" placeholder="Enter your diastolic BP">
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="predict-btn" onclick="saveSleepData()">Save Data</button>
+    <button class="predict-btn" onclick="predictSleepRisk()">Predict Quality</button>
+  </div>
+
+  <!-- Result Box -->
+  <div class="result-box" id="result-box">
+    <p>RESULT BOX for after predictions</p>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-container">
+    <p>Good sleep is the foundation of health. <span>&#x2764;</span></p>
+  </footer>
+
+  <script>
+    // Function to save sleep data
+    function saveSleepData() {
+      const age = document.getElementById("age").value;
+      const gender = document.getElementById("gender").value;
+      const sleep_duration = document.getElementById("sleep_duration").value;
+      const quality_of_sleep = document.getElementById("quality_of_sleep").value;
+      const physical_activity_level = document.getElementById("physical_activity_level").value;
+      const stress_level = document.getElementById("stress_level").value;
+      const bmi_category = document.getElementById("bmi_category").value;
+      const heart_rate = document.getElementById("heart_rate").value;
+      const daily_steps = document.getElementById("daily_steps").value;
+      const systolic_bp = document.getElementById("systolic_bp").value;
+      const diastolic_bp = document.getElementById("diastolic_bp").value;
+
+      const userId = localStorage.getItem("user_id");;
+
+      if (!age || !gender || !sleep_duration || !quality_of_sleep || !physical_activity_level || !stress_level || !bmi_category || !heart_rate || !daily_steps || !systolic_bp || !diastolic_bp) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      fetch(`http://127.0.0.1:5000/sleep/sleep_data/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          age,
+          gender,
+          sleep_duration,
+          quality_of_sleep,
+          physical_activity_level,
+          stress_level,
+          bmi_category,
+          heart_rate,
+          daily_steps,
+          systolic_bp,
+          diastolic_bp,
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Data saved:", data);
+          alert("Data saved successfully!");
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Error saving data!");
+        });
+    }
+
+    // Function to predict heart disease risk
+// Function to predict sleep risk
+function predictSleepRisk() {
+  console.log("Predict function triggered");
+  const age = document.getElementById("age").value;
+  const gender = document.getElementById("gender").value;
+  const sleep_duration = document.getElementById("sleep_duration").value;
+  const quality_of_sleep = document.getElementById("quality_of_sleep").value;
+  const physical_activity_level = document.getElementById("physical_activity_level").value;
+  const stress_level = document.getElementById("stress_level").value;
+  const bmi_category = document.getElementById("bmi_category").value;
+  const heart_rate = document.getElementById("heart_rate").value;
+  const daily_steps = document.getElementById("daily_steps").value;
+  const systolic_bp = document.getElementById("systolic_bp").value;
+  const diastolic_bp = document.getElementById("diastolic_bp").value;
+
+  if (!age || !gender || !sleep_duration || !quality_of_sleep || !physical_activity_level || !stress_level || !bmi_category || !heart_rate || !daily_steps || !systolic_bp || !diastolic_bp) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  // Show loading message while waiting for response
+  document.getElementById("result-box").innerText = "Loading prediction...";
+
+  fetch("http://127.0.0.1:5000/sleep/sleep_predict", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      age,
+      gender,
+      sleep_duration,
+      quality_of_sleep,
+      physical_activity_level,
+      stress_level,
+      bmi_category,
+      heart_rate,
+      daily_steps,
+      systolic_bp,
+      diastolic_bp,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Prediction:", data);
+      const resultBox = document.getElementById("result-box");
+
+      if (data && data.message) {
+        resultBox.innerHTML = `
+          <p><strong>Prediction:</strong> ${data.message}</p>
+          <p><strong>Risk Assessment:</strong> Based on the analysis, there is a <strong>${data.probabilities.high_risk}</strong> likelihood of being at risk of sleep-related issues, while there is a <strong>${data.probabilities.low_risk}</strong> chance of no risk.</p>
+        `;
+      } else {
+        resultBox.innerText = "Could not generate a prediction. Please try again.";
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Error predicting risk!");
+      document.getElementById("result-box").innerText = "Error occurred. Please try again.";
+    });
+}
+</script>
+<iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        /* Chatbot Container */
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        /* Chatbot Icon (Floating Button) */
+        #chatbot-icon {
+            width: 70px;
+            height: 70px;
+            background-color:#334155 ;
+            color: #334155;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Chatbot Popup (Iframe Container) */
+        #chatbot-popup {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 550px;
+            height: 530px;
+            background: #334155;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #chatbot-popup iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chatbot Container -->
+    <div id="chatbot-container">
+        <!-- Chatbot Icon -->
+        <button id="chatbot-icon">💬</button>
+        <!-- Chatbot Popup -->
+        <div id="chatbot-popup">
+            <iframe 
+                allow="microphone;" 
+                src="https://console.dialogflow.com/api-client/demo/embedded/eaf12149-ef23-4a50-873e-c503377b067f">
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Chatbot Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotPopup = document.getElementById('chatbot-popup');
+
+            // Toggle Chatbot Popup
+            chatbotIcon.addEventListener('click', () => {
+                const isDisplayed = chatbotPopup.style.display === 'block';
+                chatbotPopup.style.display = isDisplayed ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>

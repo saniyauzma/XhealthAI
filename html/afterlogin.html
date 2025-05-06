@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>afterlogin</title>
+  <link rel="stylesheet" href="../css/afterlogin.css">
+</head>
+<body>
+  <!-- Welcome Message Section -->
+  <div class="welcome-container">
+    <span>Your personalized health tracking at a glance</span>
+  </div>
+
+  <!-- Logout Button -->
+  <button class="logout-button" onclick="logout()">Logout</button>
+
+  <div class="container">
+    <!-- Features Button -->
+    <button class="block features">
+      <img src="../images/logo.png" alt="Features">
+      <span>Features</span>
+    </button>
+
+    <!-- Heart Wellness Button -->
+    <a href="heart.html" class="block heart">
+      <img src="../images/h.png" alt="Heart Wellness">
+      <span>Heart Wellness</span>
+    </a>
+
+    <!-- Diabetes Button -->
+    <a href="diabetes.html" class="block diabetes">
+      <img src="../images/diabetes.png" alt="Diabetes">
+      <span>Diabetes</span>
+    </a>
+
+    <!-- Asthma Button -->
+    <a href="pcos.html" class="block asthma">
+      <img src="../images/pcos.png" alt="Asthma">
+      <span>PCOS</span>
+    </a>
+
+    <!-- Sleep Disorder Button -->
+    <a href="sleep.html" class="block sleep">
+      <img src="../images/sleep.png" alt="Sleep Disorder">
+      <span>Sleep Disorder</span>
+    </a>
+
+    <!-- Dashboards Button -->
+    <a href="dashboard.html" class="block dashboard">
+      <img src="../images/dash.png" alt="Dashboards">
+      <span>Dashboards</span>
+    </a>
+
+    <!-- Extra Button -->
+    <a href="recommendations.html" class="block extra">
+      <img src="../images/p.png" alt="Extra">
+      <span>Personalized Health Recommendation</span>
+    </a>
+  </div>
+
+  <script>
+    // Logout function that redirects to the index page
+    function logout() {
+      window.location.href = "index.html"; // Redirect to index page (or login page)
+    }
+  </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+</body>
+</html>
+
+
+
+
+

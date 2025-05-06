@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/box.css">
+  <title>Heart Prediction</title>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Heart Disease Risk Assessment</h1>
+  </div>
+
+  <!-- Tagline Section -->
+<div class="intro-text">
+  Understand your health better. Enter your details to predict your risk of heart disease!
+</div>
+
+
+  <!-- Main Input Section -->
+  <div class="main">
+
+    <!-- Left Column -->
+    <div class="left-column">
+      <div class="input-section">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+      <div class="input-section">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age">
+      </div>
+      <div class="input-section">
+        <label for="sex">Gender:</label>
+        <select id="sex">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="chestPainType">Chest Pain Type:</label>
+        <select id="chestPainType">
+          <option value="" disabled selected>Select Chest Pain Type</option>
+          <option value="Typical">Typical Angina</option>
+          <option value="Atypical">Atypical Angina</option>
+          <option value="Non-Anginal">Non-Anginal Pain</option>
+          <option value="Asymptomatic">Asymptomatic</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="restingBP">Resting Blood Pressure (mm Hg):</label>
+        <input type="number" id="restingBP" placeholder="Enter your Resting BP">
+      </div>
+      <div class="input-section">
+        <label for="cholesterol">Cholesterol (mg/dl):</label>
+        <input type="number" id="cholesterol" placeholder="Enter your Cholesterol level">
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <div class="input-section">
+        <label for="fastingBS">Fasting Blood Sugar:</label>
+        <select id="fastingBS">
+          <option value="" disabled selected>Select Fasting Blood Sugar</option>
+          <option value=1>Greater than 120 mg/dl</option>
+          <option value=0>Less than or equal to 120 mg/dl</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="restingECG">Resting Electrocardiographic Results:</label>
+        <select id="restingECG">
+          <option value="" disabled selected>Select ECG results</option>
+          <option value="Normal">Normal</option>
+          <option value="ST-T Wave Abnormality">ST-T wave abnormality</option>
+          <option value="Left Ventricular Hypertrophy">Left ventricular hypertrophy</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="maxHR">Max Heart Rate:</label>
+        <input type="number" id="maxHR" placeholder="Enter your Max Heart Rate">
+      </div>
+      <div class="input-section">
+        <label for="exerciseAngina">Exercise Angina:</label>
+        <select id="exerciseAngina">
+          <option value="" disabled selected>Select Exercise Angina</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div class="input-section">
+        <label for="oldpeak">Oldpeak:</label>
+        <input type="number" id="oldpeak" placeholder="Enter Oldpeak value">
+      </div>
+      <div class="input-section">
+        <label for="stSlope">ST Slope:</label>
+        <select id="stSlope">
+          <option value="" disabled selected>Select ST Slope</option>
+          <option value="Upsloping">Upsloping</option>
+          <option value="Flat">Flat</option>
+          <option value="Downsloping">Downsloping</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="predict-btn" onclick="saveData()">Save Data</button>
+    <button class="predict-btn" onclick="predictHeartRisk()">Predict Risk</button>
+  </div>
+
+  <!-- Result Box -->
+  <div class="result-box" id="result-box">
+    <p>RESULT</p>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-container">
+    <p>Stay healthy and informed. <span>&#x2764;</span></p>
+  </footer>
+
+  <script>
+    // Function to save data to the backend
+    function saveData() {
+      const age = document.getElementById("age").value;
+      const sex = document.getElementById("sex").value;
+      const chestPainType = document.getElementById("chestPainType").value;
+      const restingBP = document.getElementById("restingBP").value;
+      const cholesterol = document.getElementById("cholesterol").value;
+      const fastingBS = document.getElementById("fastingBS").value;
+      const restingECG = document.getElementById("restingECG").value;
+      const maxHR = document.getElementById("maxHR").value;
+      const exerciseAngina = document.getElementById("exerciseAngina").value;
+      const oldpeak = document.getElementById("oldpeak").value;
+      const stSlope = document.getElementById("stSlope").value;
+
+      // Replace with actual user ID from your system
+      const userId = localStorage.getItem("user_id");
+
+      // Data validation before sending request
+      if (!age || !sex || !chestPainType || !restingBP || !cholesterol || !fastingBS || !restingECG || !maxHR || !exerciseAngina || !oldpeak || !stSlope) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      fetch(`http://127.0.0.1:5000/heart/heart_data/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          age,
+          sex,
+          chestPainType: chestPainType,
+          restingBP: restingBP,
+          cholesterol,
+          fastingBS: fastingBS,
+          restingECG: restingECG,
+          maxHR: maxHR,
+          exerciseAngina: exerciseAngina,
+          oldpeak,
+          stSlope: stSlope,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data saved:", data);
+          alert("Data saved successfully!");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error saving data!");
+        });
+    }
+
+    // Function to predict heart disease risk
+    function predictHeartRisk() {
+      const age = document.getElementById("age").value;
+      const sex = document.getElementById("sex").value;
+      const chestPainType = document.getElementById("chestPainType").value;
+      const restingBP = document.getElementById("restingBP").value;
+      const cholesterol = document.getElementById("cholesterol").value;
+      const fastingBS = document.getElementById("fastingBS").value;
+      const restingECG = document.getElementById("restingECG").value;
+      const maxHR = document.getElementById("maxHR").value;
+      const exerciseAngina = document.getElementById("exerciseAngina").value;
+      const oldpeak = document.getElementById("oldpeak").value;
+      const stSlope = document.getElementById("stSlope").value;
+
+      // Data validation before sending request
+      if (!age || !sex || !chestPainType || !restingBP || !cholesterol || !fastingBS || !restingECG || !maxHR || !exerciseAngina || !oldpeak || !stSlope) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Show loading message while waiting for response
+      document.getElementById("result-box").innerText = "Loading prediction...";
+
+      fetch("http://127.0.0.1:5000/heart/heart_predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          age,
+          sex,
+          chestPainType: chestPainType,
+          restingBP: restingBP,
+          cholesterol,
+          fastingBS: fastingBS,
+          restingECG: restingECG,
+          maxHR: maxHR,
+          exerciseAngina: exerciseAngina,
+          oldpeak,
+          stSlope: stSlope,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Prediction:", data);
+          const resultBox = document.getElementById("result-box");
+    resultBox.innerHTML = `
+<p><strong>Prediction:</strong> ${data.message}</p>
+<p><strong>Risk Assessment:</strong> Based on the analysis, there is a <strong>${data.probabilities.risk}</strong> likelihood of being at risk of heart disease, while there is a <strong>${data.probabilities.no_risk}</strong> chance of no risk.</p>
+    `;
+  })      
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error predicting risk!");
+          document.getElementById("result-box").innerText = "Error occurred. Please try again.";
+        });
+    }
+  </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+
+</body>
+</html>
+
+
+
+ 
+
+
+  

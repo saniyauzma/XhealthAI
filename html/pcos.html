@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="box.css">
+  <title>PCOS Prediction</title>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>PCOS Risk Assessment</h1>
+  </div>
+
+  <!-- Tagline Section -->
+  <div class="intro-text">
+    Understand your health better. Enter your details to predict your risk of PCOS!
+  </div>
+
+  <!-- Main Input Section -->
+  <div class="main">
+
+    <!-- Left Column -->
+    <div class="left-column">
+      <div class="input-section">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+      <div class="input-section">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age">
+      </div>
+      <div class="input-section">
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" placeholder="Enter your weight">
+      </div>
+      <div class="input-section">
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" placeholder="Enter your height">
+      </div>
+      <div class="input-section">
+        <label for="bmi">BMI:</label>
+        <input type="number" id="bmi" placeholder="Enter your BMI">
+      </div>
+      <div class="input-section">
+        <label for="pulse_rate">Pulse Rate:</label>
+        <input type="number" id="pulse_rate" placeholder="Enter your pulse rate">
+      </div>
+      <div class="input-section">
+        <label for="cycle_type">Cycle Type:</label>
+        <input type="text" id="cycle_type" placeholder="Enter your cycle type">
+      </div>
+      <div class="input-section">
+        <label for="cycle_length">Cycle Length (days):</label>
+        <input type="number" id="cycle_length" placeholder="Enter your cycle length">
+      </div>
+      <div class="input-section">
+        <label for="marriage_status">Marriage Status:</label>
+        <input type="text" id="marriage_status" placeholder="Enter your marriage status">
+      </div>
+      <div class="input-section">
+        <label for="pregnant">Pregnant:</label>
+        <input type="number" id="pregnant" placeholder="Enter pregnancy status">
+      </div>
+      <div class="input-section">
+        <label for="num_of_abortions">Number of Abortions:</label>
+        <input type="number" id="num_of_abortions" placeholder="Enter number of abortions">
+      </div>
+      <div class="input-section">
+        <label for="hair_loss">Hair Loss:</label>
+        <input type="number" id="hair_loss" placeholder="Enter hair loss value">
+      </div>
+      <div class="input-section">
+        <label for="pimples">Pimples:</label>
+        <input type="number" id="pimples" placeholder="Enter pimples value">
+      </div>
+      <div class="input-section">
+        <label for="fast_food">Fast Food Consumption:</label>
+        <input type="number" id="fast_food" placeholder="Enter fast food consumption">
+      </div>
+      <div class="input-section">
+        <label for="reg_exercise">Regular Exercise:</label>
+        <input type="number" id="reg_exercise" placeholder="Enter regular exercise value">
+      </div>
+      <div class="input-section">
+        <label for="bp_systolic">Systolic BP:</label>
+        <input type="number" id="bp_systolic" placeholder="Enter systolic BP">
+      </div>
+      <div class="input-section">
+        <label for="bp_diastolic">Diastolic BP:</label>
+        <input type="number" id="bp_diastolic" placeholder="Enter diastolic BP">
+      </div>
+      <div class="input-section">
+        <label for="rr">RR:</label>
+        <input type="number" id="rr" placeholder="Enter RR value">
+      </div>
+      <div class="input-section">
+        <label for="hb">HB:</label>
+        <input type="number" id="hb" placeholder="Enter HB value">
+      </div>
+      <div class="input-section">
+        <label for="follicle_no_left">Follicle Count (Left):</label>
+        <input type="number" id="follicle_no_left" placeholder="Enter follicle count on left">
+      </div>
+      <div class="input-section">
+        <label for="follicle_no_right">Follicle Count (Right):</label>
+        <input type="number" id="follicle_no_right" placeholder="Enter follicle count on right">
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <div class="input-section">
+        <label for="beta_hcg_1">Beta HCG 1:</label>
+        <input type="number" id="beta_hcg_1" placeholder="Enter Beta HCG 1">
+      </div>
+      <div class="input-section">
+        <label for="beta_hcg_2">Beta HCG 2:</label>
+        <input type="text" id="beta_hcg_2" placeholder="Enter Beta HCG 2">
+      </div>
+      <div class="input-section">
+        <label for="fsh">FSH:</label>
+        <input type="number" id="fsh" placeholder="Enter FSH value">
+      </div>
+      <div class="input-section">
+        <label for="lh">LH:</label>
+        <input type="number" id="lh" placeholder="Enter LH value">
+      </div>
+      <div class="input-section">
+        <label for="fsh_lh">FSH/LH:</label>
+        <input type="number" id="fsh_lh" placeholder="Enter FSH/LH ratio">
+      </div>
+      <div class="input-section">
+        <label for="hip">Hip Measurement:</label>
+        <input type="number" id="hip" placeholder="Enter your hip measurement">
+      </div>
+      <div class="input-section">
+        <label for="waist">Waist Measurement:</label>
+        <input type="number" id="waist" placeholder="Enter your waist measurement">
+      </div>
+      <div class="input-section">
+        <label for="waist_hip_ratio">Waist-Hip Ratio:</label>
+        <input type="number" id="waist_hip_ratio" placeholder="Enter waist-hip ratio">
+      </div>
+      <div class="input-section">
+        <label for="tsh">TSH:</label>
+        <input type="number" id="tsh" placeholder="Enter TSH value">
+      </div>
+      <div class="input-section">
+        <label for="amh">AMH:</label>
+        <input type="text" id="amh" placeholder="Enter AMH value">
+      </div>
+      <div class="input-section">
+        <label for="prl">PRL:</label>
+        <input type="number" id="prl" placeholder="Enter PRL value">
+      </div>
+      <div class="input-section">
+        <label for="vit_d3">Vitamin D3:</label>
+        <input type="number" id="vit_d3" placeholder="Enter Vitamin D3 value">
+      </div>
+      <div class="input-section">
+        <label for="prg">Progesterone:</label>
+        <input type="number" id="prg" placeholder="Enter Progesterone value">
+      </div>
+      <div class="input-section">
+        <label for="rbs">Random Blood Sugar (mg/dL):</label>
+        <input type="number" id="rbs" placeholder="Enter Random Blood Sugar">
+      </div>
+      <div class="input-section">
+        <label for="weight_gain">Weight Gain:</label>
+        <input type="number" id="weight_gain" placeholder="Enter weight gain value">
+      </div>
+      <div class="input-section">
+        <label for="hair_growth">Hair Growth:</label>
+        <input type="number" id="hair_growth" placeholder="Enter hair growth value">
+      </div>
+      <div class="input-section">
+        <label for="skin_darkening">Skin Darkening:</label>
+        <input type="number" id="skin_darkening" placeholder="Enter skin darkening value">
+      </div>
+      <div class="input-section">
+        <label for="avg_f_size_left">Avg Follicle Size (Left):</label>
+        <input type="number" id="avg_f_size_left" placeholder="Enter average follicle size on left">
+      </div>
+      <div class="input-section">
+        <label for="avg_f_size_right">Avg Follicle Size (Right):</label>
+        <input type="number" id="avg_f_size_right" placeholder="Enter average follicle size on right">
+      </div>
+      <div class="input-section">
+        <label for="endometrium">Endometrium:</label>
+        <input type="number" id="endometrium" placeholder="Enter endometrium value">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="predict-btn" onclick="saveData()">Save Data</button>
+    <button class="predict-btn" onclick="predictPCOSRisk()">Predict Risk</button>
+  </div>
+
+  <!-- Result Box -->
+  <div class="result-box" id="result-box">
+    <p>RESULT BOX for after predictions</p>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-container">
+    <p>Stay healthy and informed. <span>&#x2764;</span></p>
+    <script>
+        // Function to save PCOS data to the backend
+        function savePCOSData() {
+          const age = document.getElementById("age").value;
+          const weight = document.getElementById("weight").value;
+          const height = document.getElementById("height").value;
+          const bmi = document.getElementById("bmi").value;
+          const blood_group = document.getElementById("blood_group").value;
+          const pulse_rate = document.getElementById("pulse_rate").value;
+          const rr = document.getElementById("rr").value;
+          const hb = document.getElementById("hb").value;
+          const cycle_type = document.getElementById("cycle_type").value;
+          const cycle_length = document.getElementById("cycle_length").value;
+          const marriage_status = document.getElementById("marriage_status").value;
+          const pregnant = document.getElementById("pregnant").value;
+          const num_of_abortions = document.getElementById("num_of_abortions").value;
+          const beta_hcg_1 = document.getElementById("beta_hcg_1").value;
+          const beta_hcg_2 = document.getElementById("beta_hcg_2").value;
+          const fsh = document.getElementById("fsh").value;
+          const lh = document.getElementById("lh").value;
+          const fsh_lh = document.getElementById("fsh_lh").value;
+          const hip = document.getElementById("hip").value;
+          const waist = document.getElementById("waist").value;
+          const waist_hip_ratio = document.getElementById("waist_hip_ratio").value;
+          const tsh = document.getElementById("tsh").value;
+          const amh = document.getElementById("amh").value;
+          const prl = document.getElementById("prl").value;
+          const vit_d3 = document.getElementById("vit_d3").value;
+          const prg = document.getElementById("prg").value;
+          const rbs = document.getElementById("rbs").value;
+          const weight_gain = document.getElementById("weight_gain").value;
+          const hair_growth = document.getElementById("hair_growth").value;
+          const skin_darkening = document.getElementById("skin_darkening").value;
+          const hair_loss = document.getElementById("hair_loss").value;
+          const pimples = document.getElementById("pimples").value;
+          const fast_food = document.getElementById("fast_food").value;
+          const reg_exercise = document.getElementById("reg_exercise").value;
+          const bp_systolic = document.getElementById("bp_systolic").value;
+          const bp_diastolic = document.getElementById("bp_diastolic").value;
+          const follicle_no_left = document.getElementById("follicle_no_left").value;
+          const follicle_no_right = document.getElementById("follicle_no_right").value;
+          const avg_f_size_left = document.getElementById("avg_f_size_left").value;
+          const avg_f_size_right = document.getElementById("avg_f_size_right").value;
+          const endometrium = document.getElementById("endometrium").value;
+      
+          const userId = localStorage.getItem("user_id");
+      
+          if (!age || !weight || !height || !bmi || !blood_group || !pulse_rate || !rr || !hb || !cycle_type || !cycle_length ||
+              !marriage_status || !pregnant || !num_of_abortions || !beta_hcg_1 || !beta_hcg_2 || !fsh || !lh || !fsh_lh || !hip ||
+              !waist || !waist_hip_ratio || !tsh || !amh || !prl || !vit_d3 || !prg || !rbs || !weight_gain || !hair_growth ||
+              !skin_darkening || !hair_loss || !pimples || !fast_food || !reg_exercise || !bp_systolic || !bp_diastolic ||
+              !follicle_no_left || !follicle_no_right || !avg_f_size_left || !avg_f_size_right || !endometrium) {
+            alert("Please fill in all fields.");
+            return;
+          }
+      
+          fetch(`http://127.0.0.1:5000/pcos/pcos_data/${userId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              age, 
+              weight, 
+              height, 
+              bmi, 
+              blood_group, 
+              pulse_rate, 
+              rr, 
+              hb, 
+              cycle_type, 
+              cycle_length, 
+              marriage_status, 
+              pregnant,
+              num_of_abortions, 
+              beta_hcg_1, 
+              beta_hcg_2, 
+              fsh, 
+              lh, 
+              fsh_lh, 
+              hip, 
+              waist, 
+              waist_hip_ratio, 
+              tsh, 
+              amh, 
+              prl, 
+              vit_d3, 
+              prg, 
+              rbs,
+              weight_gain, 
+              hair_growth, 
+              skin_darkening,
+              hair_loss, pimples, 
+              fast_food, 
+              reg_exercise, 
+              bp_systolic, 
+              bp_diastolic,
+              follicle_no_left, 
+              follicle_no_right, 
+              avg_f_size_left, 
+              avg_f_size_right, 
+              endometrium
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("PCOS data saved:", data);
+              alert("PCOS data saved successfully!");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Error saving PCOS data!");
+            });
+        }
+      
+        // Function to predict PCOS risk
+        function predictPCOSRisk() {
+          const age = document.getElementById("age").value;
+          const weight = document.getElementById("weight").value;
+          const height = document.getElementById("height").value;
+          const bmi = document.getElementById("bmi").value;
+          const blood_group = document.getElementById("blood_group").value;
+          const pulse_rate = document.getElementById("pulse_rate").value;
+          const rr = document.getElementById("rr").value;
+          const hb = document.getElementById("hb").value;
+          const cycle_type = document.getElementById("cycle_type").value;
+          const cycle_length = document.getElementById("cycle_length").value;
+          const marriage_status = document.getElementById("marriage_status").value;
+          const pregnant = document.getElementById("pregnant").value;
+          const num_of_abortions = document.getElementById("num_of_abortions").value;
+          const beta_hcg_1 = document.getElementById("beta_hcg_1").value;
+          const beta_hcg_2 = document.getElementById("beta_hcg_2").value;
+          const fsh = document.getElementById("fsh").value;
+          const lh = document.getElementById("lh").value;
+          const fsh_lh = document.getElementById("fsh_lh").value;
+          const hip = document.getElementById("hip").value;
+          const waist = document.getElementById("waist").value;
+          const waist_hip_ratio = document.getElementById("waist_hip_ratio").value;
+          const tsh = document.getElementById("tsh").value;
+          const amh = document.getElementById("amh").value;
+          const prl = document.getElementById("prl").value;
+          const vit_d3 = document.getElementById("vit_d3").value;
+          const prg = document.getElementById("prg").value;
+          const rbs = document.getElementById("rbs").value;
+          const weight_gain = document.getElementById("weight_gain").value;
+          const hair_growth = document.getElementById("hair_growth").value;
+          const skin_darkening = document.getElementById("skin_darkening").value;
+          const hair_loss = document.getElementById("hair_loss").value;
+          const pimples = document.getElementById("pimples").value;
+          const fast_food = document.getElementById("fast_food").value;
+          const reg_exercise = document.getElementById("reg_exercise").value;
+          const bp_systolic = document.getElementById("bp_systolic").value;
+          const bp_diastolic = document.getElementById("bp_diastolic").value;
+          const follicle_no_left = document.getElementById("follicle_no_left").value;
+          const follicle_no_right = document.getElementById("follicle_no_right").value;
+          const avg_f_size_left = document.getElementById("avg_f_size_left").value;
+          const avg_f_size_right = document.getElementById("avg_f_size_right").value;
+          const endometrium = document.getElementById("endometrium").value;
+      
+          // Data validation before sending request
+          if (!age || !weight || !height || !bmi || !blood_group || !pulse_rate || !rr || !hb || !cycle_type || !cycle_length ||
+              !marriage_status || !pregnant || !num_of_abortions || !beta_hcg_1 || !beta_hcg_2 || !fsh || !lh || !fsh_lh || !hip ||
+              !waist || !waist_hip_ratio || !tsh || !amh || !prl || !vit_d3 || !prg || !rbs || !weight_gain || !hair_growth ||
+              !skin_darkening || !hair_loss || !pimples || !fast_food || !reg_exercise || !bp_systolic || !bp_diastolic ||
+              !follicle_no_left || !follicle_no_right || !avg_f_size_left || !avg_f_size_right || !endometrium) {
+            alert("Please fill in all fields.");
+            return;
+          }
+      
+          fetch("http://127.0.0.1:5000/pcos/predict_pcos", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                age, weight, height, bmi, blood_group, pulse_rate, rr, hb, cycle_type, cycle_length, marriage_status, pregnant, 
+                num_of_abortions, beta_hcg_1, beta_hcg_2, fsh, lh, fsh_lh, hip, waist, waist_hip_ratio, tsh, amh, prl, vit_d3, 
+                prg, rbs, weight_gain, hair_growth, skin_darkening, hair_loss, pimples, fast_food, reg_exercise, bp_systolic, 
+                bp_diastolic, follicle_no_left, follicle_no_right, avg_f_size_left, avg_f_size_right, endometrium,
+            }),
+          })
+          .then((response) => response.json())
+        .then((data) => {
+          console.log("Prediction:", data);
+          const resultBox = document.getElementById("result-box");
+    resultBox.innerHTML = `
+<p><strong>Prediction:</strong> ${data.message}</p>
+<p><strong>Risk Assessment:</strong> Based on the analysis, there is a <strong>${data.probabilities.risk}</strong> likelihood of being at risk of heart disease, while there is a <strong>${data.probabilities.no_risk}</strong> chance of no risk.</p>
+    `;
+  })      
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error predicting risk!");
+          document.getElementById("result-box").innerText = "Error occurred. Please try again.";
+        });
+    }
+      </script>
+      
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>  
+</body>
+</html>

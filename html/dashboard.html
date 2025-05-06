@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/DASH.CSS">
+    <title>Health Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Personalized Health Dashboard</h1>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Card Container with all cards -->
+        <div class="card-container">
+            <!-- Heart Rate Card -->
+            <div class="card">
+                <h3>Heart Rate</h3>
+                <p id="latestHeartRate">Loading...</p>
+            </div>
+
+            <!-- Cholesterol Card -->
+            <div class="card">
+                <h3>Cholesterol</h3>
+                <p id="cholesterol">Loading...</p>
+            </div>
+
+            <!-- Systolic Blood Pressure Card -->
+            <div class="card">
+                <h3>Systolic Blood Pressure</h3>
+                <p id="SystolicBloodPressure">Loading...</p>
+            </div>
+
+            <!-- Diastolic Blood Pressure Card -->
+            <div class="card">
+                <h3>Diastolic Blood Pressure</h3>
+                <p id="DiastolicBloodPressure">Loading...</p>
+            </div>
+
+            <!-- Blood Glucose Level Card -->
+            <div class="card">
+                <h3>Blood Glucose Level</h3>
+                <p id="bloodglucoselevel">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-container">
+        <div class="dashboard-container">
+            <h2>Heart Rate Over Time</h2>
+            <canvas id="heartRateChart"></canvas>
+        </div>
+
+        <div class="dashboard-container">
+            <h2>Cholesterol Over Time</h2>
+            <canvas id="cholesterolChart"></canvas>
+        </div>
+
+        <div class="dashboard-container">
+            <h2>Sleep Duration Over Time</h2>
+            <canvas id="sleepDurationChart"></canvas>
+        </div>
+
+        <div class="dashboard-container">
+            <h2>Stress Level Gauge</h2>
+            <canvas id="stressLevelBar"></canvas>
+        </div>
+
+        <div class="dashboard-container">
+            <h2>Physical Activity Level Over Time</h2>
+            <canvas id="activityChart"></canvas>
+        </div>
+
+        <div class="dashboard-container">
+            <h2>Daily Steps Over Time</h2>
+            <canvas id="stepsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        
+        async function fetchHeartData(userId) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/dashboard/heart_data/${userId}`);
+                const data = await response.json();
+
+                if (data.heart_rate_data) {
+                    return data.heart_rate_data; 
+                } else {
+                    throw new Error("No heart data found");
+                }
+            } catch (error) {
+                console.error("Error fetching heart data:", error);
+                alert("Failed to load heart data!");
+            }
+        }
+
+        // Function to fetch sleep data (including sleep duration and stress level)
+        async function fetchSleepData(userId) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/dashboard/sleep_data/${userId}`);
+                const data = await response.json();
+
+                if (data.sleep_data) {
+                    return data.sleep_data; // Return the sleep data
+                } else {
+                    throw new Error("No sleep data found");
+                }
+            } catch (error) {
+                console.error("Error fetching sleep data:", error);
+                alert("Failed to load sleep data!");
+            }
+        }
+
+        // Function to fetch diabetes data
+        async function fetchDiabetesData(userId) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/dashboard/diabetes_data/${userId}`);
+                const data = await response.json();
+
+                if (data.diabetes_data) {
+                    return data.diabetes_data; // Return the diabetes data
+                } else {
+                    throw new Error("No diabetes data found");
+                }
+            } catch (error) {
+                console.error("Error fetching diabetes data:", error);
+                alert("Failed to load diabetes data!");
+            }
+        }
+
+        // Update functions for cards
+        function updateLatestHeartRate(heartData) {
+            const latestHeartRate = heartData.heart_rates.slice(-1)[0]; // Get the last heart rate value
+            document.getElementById('latestHeartRate').textContent = latestHeartRate + " BPM";
+        }
+
+        function updateCholesterol(heartData) {
+            const cholesterol = heartData.cholesterol.slice(-1)[0]; // Get the last cholesterol value
+            document.getElementById('cholesterol').textContent = cholesterol + " mg/dL";
+        }
+
+        function updateSystolicBloodPressure(sleepData) {
+            const systolicBloodPressure = sleepData.systolic_bp.slice(-1)[0]; // Get the last systolic blood pressure value
+            document.getElementById('SystolicBloodPressure').textContent = systolicBloodPressure + " mmHg";
+        }
+
+        function updateDiastolicBloodPressure(sleepData) {
+            const diastolicBloodPressure = sleepData.diastolic_bp.slice(-1)[0]; // Get the last diastolic blood pressure value
+            document.getElementById('DiastolicBloodPressure').textContent = diastolicBloodPressure + " mmHg";
+        }
+
+        function updateBloodGlucoseLevel(diabetesData) {
+            const bloodGlucoseLevel = diabetesData.blood_glucose_level.slice(-1)[0]; // Get the last blood glucose level
+            document.getElementById('bloodglucoselevel').textContent = bloodGlucoseLevel + " mg/dL";
+        }
+        // Function to initialize the Heart Rate Chart
+        async function initHeartRateChart(heartData) {
+            const ctx = document.getElementById('heartRateChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: heartData.labels, // Dates from data
+                    datasets: [
+                        {
+                            label: 'Heart Rate (BPM)',
+                            data: heartData.heart_rates, // Heart rates
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Threshold (100 BPM)',
+                            data: Array(heartData.labels.length).fill(heartData.threshold), // Threshold line
+                            borderColor: 'rgba(255, 206, 86, 1)',
+                            borderDash: [10, 5], // Dashed line
+                            borderWidth: 2,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to initialize the Cholesterol Chart
+        async function initCholesterolChart(heartData) {
+            const ctx = document.getElementById('cholesterolChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: heartData.labels, // Dates from data
+                    datasets: [
+                        {
+                            label: 'Cholesterol',
+                            data: heartData.cholesterol, // Cholesterol values
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 1,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to initialize the Sleep Duration Chart
+        async function initSleepDurationChart(sleepData) {
+            const ctx = document.getElementById('sleepDurationChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sleepData.labels, // Dates from data
+                    datasets: [
+                        {
+                            label: 'Sleep Duration (hrs)',
+                            data: sleepData.sleep_duration, // Sleep duration
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 1,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Threshold (8 hrs)',
+                            data: Array(sleepData.labels.length).fill(8), // Threshold line (8 hours)
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderDash: [10, 5], // Dashed line
+                            borderWidth: 2,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to initialize the Stress Level Bar Chart
+        async function initStressLevelBar(sleepData) {
+            console.log(sleepData);  // Log the sleepData object to check the structure
+
+            const ctx = document.getElementById('stressLevelBar').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sleepData.labels,
+                    datasets: [{
+                        label: 'Stress Level (1-10)',
+                        data: sleepData.stress_level, // Make sure stress_level contains the right data
+                        backgroundColor: '#dc3545', // Red for stress
+                        borderColor: '#dc3545',
+                        borderWidth: 1,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10, // Max value for stress level
+                            title: {
+                                display: true,
+                                text: 'Stress Level (1-10)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        async function initactivityChart(sleepData) {
+            console.log(sleepData);  // Log the sleepData object to check the structure
+
+            const ctx = document.getElementById('activityChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sleepData.labels,
+                    datasets: [{
+                        label: 'Phycisal Activity',
+                        data: sleepData.physical_activity, // Make sure stress_level contains the right data
+                        backgroundColor: '#dc3545', // Red for stress
+                        borderColor: '#dc3545',
+                        borderWidth: 1,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10, // Max value for stress level
+                            title: {
+                                display: true,
+                                text: 'Physical Activity'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function initstepsChart(sleepData) {
+            console.log(sleepData);  // Log the sleepData object to check the structure
+
+            const ctx = document.getElementById('stepsChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sleepData.labels,
+                    datasets: [{
+                        label: 'Dailt Steps',
+                        data: sleepData.daily_steps, // Make sure stress_level contains the right data
+                        backgroundColor: '#dc3545', // Red for stress
+                        borderColor: '#dc3545',
+                        borderWidth: 1,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+// Max value for stress level
+                            title: {
+                                display: true,
+                                text: 'Daily Steps'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        async function initActivityChart(sleepData) {
+    if (!sleepData || !sleepData.labels || !sleepData.physical_activity) {
+        console.error("Missing physical activity data");
+        return;
+    }
+
+    const ctx = document.getElementById('activityChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sleepData.labels,
+            datasets: [{
+                label: 'Physical Activity',
+                data: sleepData.physical_activity, // Ensure this data exists
+                backgroundColor: '#dc3545', // Red for physical activity
+                borderColor: '#dc3545',
+                borderWidth: 1,
+                maxBarThickness: 50
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10, // Max value for activity level
+                    title: {
+                        display: true,
+                        text: 'Physical Activity'
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function initStepsChart(sleepData) {
+    if (!sleepData || !sleepData.labels || !sleepData.daily_steps) {
+        console.error("Missing daily steps data");
+        return;
+    }
+
+    const ctx = document.getElementById('stepsChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sleepData.labels,
+            datasets: [{
+                label: 'Daily Steps',
+                data: sleepData.daily_steps, // Ensure this data exists
+                backgroundColor: '#dc3545', // Red for physical activity
+                borderColor: '#dc3545',
+                borderWidth: 1,
+                maxBarThickness: 50
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Daily Steps'
+                    }
+                }
+            }
+        }
+    });
+}
+        // Chart initialization functions (same as your original code, unchanged)
+
+        // Main function to initialize all charts and cards
+        async function initDashboard() {
+            const userId = localStorage.getItem("user_id"); // Example user ID, change as needed
+            const heartData = await fetchHeartData(userId);
+            const sleepData = await fetchSleepData(userId);
+            const diabetesData = await fetchDiabetesData(userId);
+
+            // Update the cards
+            updateLatestHeartRate(heartData);
+            updateCholesterol(heartData);
+            updateSystolicBloodPressure(sleepData);
+            updateDiastolicBloodPressure(sleepData);
+            updateBloodGlucoseLevel(diabetesData);
+
+            // Initialize all charts
+            initHeartRateChart(heartData);
+            initCholesterolChart(heartData);
+            initSleepDurationChart(sleepData);
+            initStressLevelBar(sleepData);
+            initActivityChart(sleepData);
+            initStepsChart(sleepData);
+        }
+
+        // Initialize dashboard once the page loads
+        window.onload = initDashboard;
+    </script>
+      <iframe src="chatbot.html" style="position: fixed; bottom: 20px; right: 20px; width: 650px; height: 600px; border: none; z-index: 9999;"></iframe>
+</body>
+</html>
