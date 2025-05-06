@@ -1,0 +1,182 @@
+/* Body and Global Styles */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #add8e6;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Header Section */
+.header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Intro Text Section */
+.intro-text {
+  text-align: center;
+  margin: 20px auto 40px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #444;
+  background-color: #f7f9fb; /* Light contrasting background */
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 800px; /* Limits width for better readability */
+}
+
+/* Main Section */
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+/* Columns */
+.left-column, .right-column {
+  flex: 1;
+  margin: 0 20px;
+  min-width: 280px; /* To make it responsive */
+}
+
+/* Input Section */
+.input-section {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Styled input and select boxes */
+input, select {
+  width: 80%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  color: #2c3e50;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+input:focus, select:focus {
+  border-color: #2c3e50;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(52, 152, 219, 0.3);
+  outline: none;
+}
+
+input::placeholder, select::placeholder {
+  color: #bbb;
+  font-weight: 400;
+}
+
+input:hover, select:hover {
+  border-color: #2c3e50;
+  background-color: #f1f1f1;
+}
+
+/* Button Section */
+.buttons {
+  text-align: center;
+  margin: 40px 0;
+}
+
+button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 40px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #34495e;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Result Box */
+.result-box {
+  background-color: #34495e; /* Slightly lighter color */
+  color: white;
+  text-align: center;
+  padding: 30px; /* Increased padding for better spacing */
+  border-radius: 15px;
+  margin: 20px auto; /* Added some margin for better spacing */
+  max-width: 550px; /* Increased max-width for better content fitting */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+  font-family: 'Arial', sans-serif; /* Added a clean sans-serif font */
+  font-size: 24px; /* Increased font size for better readability */
+}
+
+.result-box p {
+  margin-bottom: 10px; /* Added space between paragraphs */
+}
+
+.result-box strong {
+  font-weight: bold; /* Makes the labels stand out */
+}
+
+
+/* Footer Section */
+.footer-container {
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.footer-container p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.footer-container span {
+  font-size: 18px;
+  color: #add8e6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  

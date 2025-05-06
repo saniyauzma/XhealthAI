@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #d4edf4; /* Light blue background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative; /* Position context for the logout button */
+  flex-direction: column; /* Stack elements vertically */
+}
+
+.welcome-container {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #345c72; /* Dark blue background */
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px; /* Add spacing between the welcome message and the grid */
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 278px 289px 289px 289px;
+  grid-template-rows: auto auto;
+  gap: 30px 80px; /* Space between the boxes */
+  justify-content: center;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center;
+  text-decoration: none; /* Remove underline for links */
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: #345c72; /* Button background */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 289px; /* Fixed width */
+  height: 307px; /* Fixed height */
+}
+
+.block img {
+  width: 261px; /* Increase the width */
+  height: 149px; /* Set height to match the width */
+  margin-bottom: 20px; /* Add spacing between the image and the text */
+}
+
+.block span {
+  font-size: 20px; /* Adjust text size if needed */
+  font-weight: bold; /* Make text bold for better visibility */
+}
+
+.block:hover {
+  transform: translateY(-5px);
+}
+
+/* Specific Styles */
+.features {
+  grid-row: span 2; /* Occupy two rows */
+  width: 278px;
+  height: 492px;
+  background-color: #345c72; /* Dark blue */
+}
+
+.heart, .diabetes, .asthma, .sleep, .dashboard, .extra {
+  width: 289px;
+  height: 307px;
+}
+
+.heart {
+  background-color: #345c72; /* Dark blue */
+}
+
+.diabetes {
+  background-color: #2a2e30; /* Dark gray */
+}
+
+.asthma {
+  background-color: #2a2e30; /* Dark gray */
+}
+
+.sleep {
+  background-color: #2a2e30; /* Teal */
+}
+
+.dashboard {
+  background-color: black; /* Black */
+}
+
+.extra {
+  background-color: #345c72; /* Dark blue */
+}
+
+/* Logout Button Styles */
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: black; /* Black */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #444; /* Darker gray on hover */
+}
+
+
+  

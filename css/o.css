@@ -1,0 +1,92 @@
+/* Reset and Body Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #93c5fd;
+    overflow-x: hidden;
+    height: 100vh;
+  }
+  
+  /* Section Styling */
+  .why-choose-us {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Full viewport height */
+    width: 100%;   /* Full viewport width */
+    background-color: #93c5fd;
+  }
+  
+  /* Left Section */
+  .left-section {
+    flex: 1;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:#dfedf4;
+  }
+  
+  .left-section h1 {
+    font-size: 4rem;
+    color: #2a2a2a;
+    margin-bottom: 20px;
+  }
+  
+  .left-section img {
+    max-width: 80%;
+    height: auto;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  /* Right Section */
+  .right-section {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    background-color: #334155;
+    padding: 40px;
+    color: #fff;
+    align-items: center;
+  }
+  
+  /* Feature Cards */
+  .feature {
+    background-color: #334155;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .feature h2 {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 10px;
+  }
+  
+  .feature p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .why-choose-us {
+      flex-direction: column;
+    }
+  
+    .right-section {
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+  }
+  
+  
