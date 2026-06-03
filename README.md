@@ -1,4 +1,4 @@
-XHEALTHAI
+## XhealthAI
 XhealthAI is a health-focused AI web application that provides predictive analytics and recommendations for various health conditions, including diabetes, heart disease, PCOS, and sleep disorders. The platform leverages machine learning models to assist users in understanding their health risks and offers personalized recommendations.
 
 ## Features
